@@ -9,38 +9,43 @@ public class CalculatorController {
 
     @FXML
     private TextField output;
-    private double first, second;
+    private Double first;
+    private Double second;
+    private Double result = 0.0;
+
     private Operation operation;
 
     private int ignoreInputSize = 0;
 
-    private double sum(double first, double second) {
-        return first + second;
+    public void sum() {
+        result = first + second;
     }
 
-    private double sub(double first, double second) {
-        return first - second;
+    public void sub() {
+        result = first - second;
     }
 
-    private double mul(double first, double second) {
-        return first * second;
+    public void mul() {
+        result = first * second;
     }
 
-    private double div(double first, double second) throws ArithmeticException {
-        if (Double.compare(first, second) == 0)
-            return first / second;
-        throw new ArithmeticException("Division by zero");
+    public void div() throws ArithmeticException {
+        if (Double.compare(second, 0.0) != 0)
+            result = first / second;
+        else
+            throw new ArithmeticException("Division by zero");
     }
 
-    private double sqrt(double num) throws ArithmeticException {
-        if (Double.compare(num, 0) >= 0)
-            return Math.sqrt(num);
-        throw new ArithmeticException("Square root of a negative number");
+    public void sqrt() throws ArithmeticException {
+        if (Double.compare(first, 0) >= 0)
+            result = Math.sqrt(first);
+        else
+            throw new ArithmeticException("Square root of a negative number");
     }
 
     @FXML
     protected void write(ActionEvent event) {
-        output.setText(output.getText().concat(((Button)event.getSource()).getText()));
+        output.setText(output.getText().concat(((Button) event.getSource()).getText()));
     }
 
     @FXML
@@ -64,7 +69,7 @@ public class CalculatorController {
         write(event);
         ignoreInputSize = output.getText().length();
         operation = Operation.SUM;
-        second = 0;
+        second = 0.0;
     }
 
     @FXML
@@ -73,7 +78,7 @@ public class CalculatorController {
         write(event);
         ignoreInputSize = output.getText().length();
         operation = Operation.SUB;
-        second = 0;
+        second = 0.0;
     }
 
     @FXML
@@ -82,7 +87,7 @@ public class CalculatorController {
         write(event);
         ignoreInputSize = output.getText().length();
         operation = Operation.MUL;
-        second = 1;
+        second = 1.0;
     }
 
     @FXML
@@ -91,7 +96,7 @@ public class CalculatorController {
         write(event);
         ignoreInputSize = output.getText().length();
         operation = Operation.DIV;
-        second = 1;
+        second = 1.0;
     }
 
     @FXML
@@ -106,24 +111,43 @@ public class CalculatorController {
     protected void resolve() {
         if (output.getText().length() > ignoreInputSize)
             second = Double.parseDouble(output.getText().substring(ignoreInputSize));
-        switch (operation) {
-            case SUM: output.setText(String.valueOf(sum(first, second))); break;
-            case SUB: output.setText(String.valueOf(sub(first, second))); break;
-            case MUL: output.setText(String.valueOf(mul(first, second))); break;
+        switch (operation) { // TD check overflow, max insertable digits
+            case SUM:
+                sum();
+                break;
+            case SUB:
+                sub();
+                break;
+            case MUL:
+                mul();
+                break; // Not overflow
             case DIV:
                 try {
-                    output.setText(String.valueOf(div(first, second)));
+                    div();
                 } catch (ArithmeticException e) {
                     output.setText(e.getMessage());
                 }
                 break;
-            case SQRT:
+            case SQRT: // TD write sqrt before number
                 try {
-                    output.setText(String.valueOf(sqrt(first)));
+                    sqrt();
                 } catch (ArithmeticException e) {
                     output.setText(e.getMessage());
                 }
                 break;
         }
+        output.setText(String.valueOf(result));
+    }
+
+    public void setFirst(Double first) {
+        this.first = first;
+    }
+
+    public void setSecond(Double second) {
+        this.second = second;
+    }
+
+    public Double getResult() {
+        return result;
     }
 }

@@ -1,47 +1,24 @@
-package it.ispw22.calculator;
+package it.ispw22.calculator.control;
 
+import it.ispw22.calculator.Operation;
+import it.ispw22.calculator.bean.ControllerBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CalculatorController {
+public class GraphicController {
 
-    @FXML
-    private TextField output;
     private Double first;
     private Double second;
     private Double result = 0.0;
-
     private Operation operation;
+    @FXML
+    private TextField output;
 
+    private final ControllerBean bean = new ControllerBean();
+    private final ApplicationController applicationController = new ApplicationController(bean);
     private int ignoreInputSize = 0;
-
-    public void sum() {
-        result = first + second;
-    }
-
-    public void sub() {
-        result = first - second;
-    }
-
-    public void mul() {
-        result = first * second;
-    }
-
-    public void div() throws ArithmeticException {
-        if (Double.compare(second, 0.0) != 0)
-            result = first / second;
-        else
-            throw new ArithmeticException("Division by zero");
-    }
-
-    public void sqrt() throws ArithmeticException {
-        if (Double.compare(first, 0) >= 0)
-            result = Math.sqrt(first);
-        else
-            throw new ArithmeticException("Square root of a negative number");
-    }
 
     @FXML
     protected void write(ActionEvent event) {
@@ -111,43 +88,23 @@ public class CalculatorController {
     protected void resolve() {
         if (output.getText().length() > ignoreInputSize)
             second = Double.parseDouble(output.getText().substring(ignoreInputSize));
-        switch (operation) { // TD check overflow, max insertable digits
-            case SUM:
-                sum();
-                break;
-            case SUB:
-                sub();
-                break;
-            case MUL:
-                mul();
-                break; // Not overflow
-            case DIV:
-                try {
-                    div();
-                } catch (ArithmeticException e) {
-                    output.setText(e.getMessage());
-                }
-                break;
-            case SQRT: // TD write sqrt before number
-                try {
-                    sqrt();
-                } catch (ArithmeticException e) {
-                    output.setText(e.getMessage());
-                }
-                break;
+        bean.setFirst(first);
+        bean.setSecond(second);
+        bean.setOperation(operation);
+        applicationController.operate();
+        if (bean.getException() == null) {
+            result = bean.getResult();
+            output.setText(String.valueOf(result));
+        } else {
+            output.setText(bean.getException().getMessage());
         }
-        output.setText(String.valueOf(result));
     }
 
-    public void setFirst(Double first) {
-        this.first = first;
+    public ControllerBean getBean() {
+        return bean;
     }
 
-    public void setSecond(Double second) {
-        this.second = second;
-    }
-
-    public Double getResult() {
-        return result;
+    public ApplicationController getApplicationController() {
+        return applicationController;
     }
 }

@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'it.ispw22.calculator'
-    mainClass = 'it.ispw22.calculator.HelloApplication'
+    mainClass = 'it.ispw22.calculator.CalculatorApplication'
 }
 
 javafx {

@@ -30,17 +30,17 @@
             <RowConstraints maxHeight="Infinity" vgrow="ALWAYS"/>
             <RowConstraints maxHeight="Infinity" vgrow="ALWAYS"/>
         </rowConstraints>
-        <Button fx:id="zeroButton" text="0" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-        <Button fx:id="oneButton" text="1" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Button fx:id="twoButton" text="2" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <Button fx:id="threeButton" text="3" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-        <Button fx:id="fourButton" text="4" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Button fx:id="fiveButton" text="5" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <Button fx:id="sixButton" text="6" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-        <Button fx:id="sevenButton" text="7" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Button fx:id="eightButton" text="8" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <Button fx:id="nineButton" text="9" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-        <Button fx:id="dotButton" text="." onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+        <Button text="0" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Button text="1" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Button text="2" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Button text="3" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <Button text="4" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Button text="5" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Button text="6" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <Button text="7" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Button text="8" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button text="9" onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <Button text="." onAction="#write" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
         <Button text="√" onAction="#sqrt" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <Button text="CANC" onAction="#cancel" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <Button text="DEL" onAction="#delete" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0"/>

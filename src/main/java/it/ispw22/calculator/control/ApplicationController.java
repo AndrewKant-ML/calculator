@@ -1,66 +1,60 @@
 package it.ispw22.calculator.control;
 
-import it.ispw22.calculator.Operation;
-import it.ispw22.calculator.bean.ControllerBean;
+import it.ispw22.calculator.bean.OperandBean;
+import it.ispw22.calculator.bean.OperatorBean;
+import it.ispw22.calculator.bean.ResultBean;
 
 public class ApplicationController {
 
-    private final ControllerBean bean;
-
-    public ApplicationController(ControllerBean bean) {
-        this.bean = bean;
+    public void sum(OperandBean firstOperand, OperandBean secondOperand, ResultBean resultBean) {
+        resultBean.setResult(firstOperand.getValue() + secondOperand.getValue());
     }
 
-    public void sum() {
-        bean.setResult(bean.getFirst() + bean.getSecond());
+    public void sub(OperandBean firstOperand, OperandBean secondOperand, ResultBean resultBean) {
+        resultBean.setResult(firstOperand.getValue() - secondOperand.getValue());
     }
 
-    public void sub() {
-        bean.setResult(bean.getFirst() - bean.getSecond());
+    public void mul(OperandBean firstOperand, OperandBean secondOperand, ResultBean resultBean) {
+        resultBean.setResult(firstOperand.getValue() * secondOperand.getValue());
     }
 
-    public void mul() {
-        bean.setResult(bean.getFirst() * bean.getSecond());
-    }
-
-    public void div() throws ArithmeticException {
-        if (Double.compare(bean.getSecond(), 0.0) != 0)
-            bean.setResult(bean.getFirst() / bean.getSecond());
+    public void div(OperandBean firstOperand, OperandBean secondOperand, ResultBean resultBean) throws ArithmeticException {
+        if (Double.compare(firstOperand.getValue(), 0.0) != 0)
+            resultBean.setResult(firstOperand.getValue() / secondOperand.getValue());
         else
             throw new ArithmeticException("Division by zero");
     }
 
-    public void sqrt() throws ArithmeticException {
-        if (Double.compare(bean.getFirst(), 0) >= 0)
-            bean.setResult(Math.sqrt(bean.getFirst()));
+    public void sqrt(OperandBean operand, ResultBean resultBean) throws ArithmeticException {
+        if (Double.compare(operand.getValue(), 0.0) >= 0)
+            resultBean.setResult(Math.sqrt(operand.getValue()));
         else
             throw new ArithmeticException("Square root of a negative number");
     }
 
-    public void operate() {
-        bean.setException(null);
-        switch (bean.getOperation()) { // TD check overflow, max insertable digits
+    public void operate(OperandBean firstOperand, OperandBean secondOperand, OperatorBean operatorBean, ResultBean resultBean) throws Exception {
+        switch (operatorBean.getOperator()) { // TD check overflow, max insertable digits
             case SUM:
-                sum();
+                sum(firstOperand, secondOperand, resultBean);
                 break;
             case SUB:
-                sub();
+                sub(firstOperand, secondOperand, resultBean);
                 break;
             case MUL:
-                mul();
-                break; // Not overflow
+                mul(firstOperand, secondOperand, resultBean);
+                break;
             case DIV:
                 try {
-                    div();
+                    div(firstOperand, secondOperand, resultBean);
                 } catch (ArithmeticException e) {
-                    bean.setException(e);
+                    throw new Exception("Division error", e.getCause());
                 }
                 break;
             case SQRT: // TD write sqrt before number
                 try {
-                    sqrt();
+                    sqrt(firstOperand, resultBean);
                 } catch (ArithmeticException e) {
-                    bean.setException(e);
+                    throw new Exception("Square root error", e.getCause());
                 }
                 break;
         }

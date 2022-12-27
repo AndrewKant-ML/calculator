@@ -1,6 +1,6 @@
 package it.ispw22.calculator;
 
-public enum Operation {
+public enum Operator {
 
     SUM,
     SUB,

@@ -1,7 +1,7 @@
 package it.ispw22.calculator.control;
 
-import it.ispw22.calculator.Operation;
-import it.ispw22.calculator.bean.ControllerBean;
+import it.ispw22.calculator.Operator;
+import it.ispw22.calculator.bean.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,13 +11,11 @@ public class GraphicController {
 
     private Double first;
     private Double second;
-    private Double result = 0.0;
-    private Operation operation;
+    private Operator operator;
     @FXML
     private TextField output;
 
-    private final ControllerBean bean = new ControllerBean();
-    private final ApplicationController applicationController = new ApplicationController(bean);
+    private final ApplicationController applicationController = new ApplicationController();
     private int ignoreInputSize = 0;
 
     @FXML
@@ -45,7 +43,7 @@ public class GraphicController {
         first = Double.parseDouble(output.getText());
         write(event);
         ignoreInputSize = output.getText().length();
-        operation = Operation.SUM;
+        operator = Operator.SUM;
         second = 0.0;
     }
 
@@ -54,7 +52,7 @@ public class GraphicController {
         first = Double.parseDouble(output.getText());
         write(event);
         ignoreInputSize = output.getText().length();
-        operation = Operation.SUB;
+        operator = Operator.SUB;
         second = 0.0;
     }
 
@@ -63,7 +61,7 @@ public class GraphicController {
         first = Double.parseDouble(output.getText());
         write(event);
         ignoreInputSize = output.getText().length();
-        operation = Operation.MUL;
+        operator = Operator.MUL;
         second = 1.0;
     }
 
@@ -72,7 +70,7 @@ public class GraphicController {
         first = Double.parseDouble(output.getText());
         write(event);
         ignoreInputSize = output.getText().length();
-        operation = Operation.DIV;
+        operator = Operator.DIV;
         second = 1.0;
     }
 
@@ -81,27 +79,23 @@ public class GraphicController {
         first = Double.parseDouble(output.getText());
         write(event);
         ignoreInputSize = output.getText().length();
-        operation = Operation.SQRT;
+        operator = Operator.SQRT;
     }
 
     @FXML
     protected void resolve() {
         if (output.getText().length() > ignoreInputSize)
             second = Double.parseDouble(output.getText().substring(ignoreInputSize));
-        bean.setFirst(first);
-        bean.setSecond(second);
-        bean.setOperation(operation);
-        applicationController.operate();
-        if (bean.getException() == null) {
-            result = bean.getResult();
-            output.setText(String.valueOf(result));
-        } else {
-            output.setText(bean.getException().getMessage());
+        OperandBean operandBean = new OperandBean(first);
+        OperandBean secondBean = new OperandBean(second);
+        OperatorBean operatorBean = new OperatorBean(operator);
+        ResultBean resultBean = new ResultBean();
+        try {
+            applicationController.operate(operandBean, secondBean, operatorBean, resultBean);
+            output.setText(String.valueOf(resultBean.getResult()));
+        } catch (Exception e) {
+            output.setText(e.getMessage());
         }
-    }
-
-    public ControllerBean getBean() {
-        return bean;
     }
 
     public ApplicationController getApplicationController() {

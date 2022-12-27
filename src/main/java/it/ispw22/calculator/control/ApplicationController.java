@@ -3,6 +3,7 @@ package it.ispw22.calculator.control;
 import it.ispw22.calculator.bean.OperandBean;
 import it.ispw22.calculator.bean.OperatorBean;
 import it.ispw22.calculator.bean.ResultBean;
+import it.ispw22.calculator.exception.OperationException;
 
 public class ApplicationController {
 
@@ -32,7 +33,7 @@ public class ApplicationController {
             throw new ArithmeticException("Square root of a negative number");
     }
 
-    public void operate(OperandBean firstOperand, OperandBean secondOperand, OperatorBean operatorBean, ResultBean resultBean) throws Exception {
+    public void operate(OperandBean firstOperand, OperandBean secondOperand, OperatorBean operatorBean, ResultBean resultBean) throws OperationException {
         switch (operatorBean.getOperator()) { // TD check overflow, max insertable digits
             case SUM:
                 sum(firstOperand, secondOperand, resultBean);
@@ -47,14 +48,14 @@ public class ApplicationController {
                 try {
                     div(firstOperand, secondOperand, resultBean);
                 } catch (ArithmeticException e) {
-                    throw new Exception("Division error", e.getCause());
+                    throw new OperationException("Division error", e.getCause());
                 }
                 break;
             case SQRT: // TD write sqrt before number
                 try {
                     sqrt(firstOperand, resultBean);
                 } catch (ArithmeticException e) {
-                    throw new Exception("Square root error", e.getCause());
+                    throw new OperationException("Square root error", e.getCause());
                 }
                 break;
         }

@@ -2,6 +2,7 @@ package it.ispw22.calculator.control;
 
 import it.ispw22.calculator.Operator;
 import it.ispw22.calculator.bean.*;
+import it.ispw22.calculator.exception.OperationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -93,7 +94,7 @@ public class GraphicController {
         try {
             applicationController.operate(operandBean, secondBean, operatorBean, resultBean);
             output.setText(String.valueOf(resultBean.getResult()));
-        } catch (Exception e) {
+        } catch (OperationException e) {
             output.setText(e.getMessage());
         }
     }

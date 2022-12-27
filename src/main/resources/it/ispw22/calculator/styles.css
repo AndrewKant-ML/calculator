@@ -15,6 +15,6 @@ Button:hover {
     -fx-text-fill: #fff;
 }
 
-GridPane {
+#gridPane {
     -fx-background-color: #fff;
 }

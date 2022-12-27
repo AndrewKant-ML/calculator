@@ -11,7 +11,7 @@
             prefHeight="400.0" prefWidth="600.0">
     <TextField fx:id="output" prefWidth="600.0" prefHeight="30" alignment="CENTER_RIGHT" editable="false"
         AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-    <GridPane prefWidth="600.0" prefHeight="370.0"
+    <GridPane id="gridPane" prefWidth="600.0" prefHeight="370.0"
         AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
         hgap="10" vgap="10">
         <padding>
